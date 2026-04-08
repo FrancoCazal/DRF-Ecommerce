@@ -1,0 +1,21 @@
+django>=5.0,<6.0
+djangorestframework>=3.14
+djangorestframework-simplejwt
+drf-spectacular
+django-cors-headers
+django-filter
+Pillow
+psycopg2-binary
+redis
+python-decouple
+celery>=5.3,<6.0
+flower
+
+stripe
+
+# Testing
+pytest
+pytest-django
+pytest-cov
+factory-boy
+fakeredis
