@@ -14,8 +14,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+ENV DJANGO_SETTINGS_MODULE=config.settings.production
+
 EXPOSE 8000
 
-RUN python manage.py collectstatic --noinput || true
+RUN DJANGO_SETTINGS_MODULE=config.settings.production \
+    SECRET_KEY=build-only-dummy-key \
+    DB_NAME=x DB_USER=x DB_PASSWORD=x DB_HOST=x \
+    python manage.py collectstatic --noinput
 
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
