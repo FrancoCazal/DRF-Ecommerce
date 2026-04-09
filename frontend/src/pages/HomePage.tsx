@@ -103,7 +103,7 @@ export function HomePage() {
             </Link>
           </div>
 
-          <ProductGrid products={(data?.results || []).slice(0, 8)} isLoading={isLoading} />
+          <ProductGrid products={(data?.results || []).slice(0, 4)} isLoading={isLoading} />
         </div>
       </section>
 
