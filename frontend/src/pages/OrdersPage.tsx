@@ -23,7 +23,7 @@ export function OrdersPage() {
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <h1 className="mb-8 text-4xl font-bold text-slate-900">My Orders</h1>
+        <h1 className="mb-8 text-4xl font-bold text-on-surface">My Orders</h1>
         <div className="space-y-4">
           <Skeleton className="h-16 w-full" />
           <Skeleton className="h-16 w-full" />
@@ -38,9 +38,9 @@ export function OrdersPage() {
       <div className="container mx-auto px-4 py-16">
         <Card>
           <CardContent className="flex flex-col items-center py-16">
-            <Package className="mb-4 h-16 w-16 text-slate-400" />
-            <h2 className="mb-2 text-2xl font-bold text-slate-900">No orders yet</h2>
-            <p className="mb-6 text-slate-600">Start shopping to create your first order</p>
+            <Package className="mb-4 h-16 w-16 text-secondary" />
+            <h2 className="mb-2 text-2xl font-bold text-on-surface">No orders yet</h2>
+            <p className="mb-6 text-secondary">Start shopping to create your first order</p>
             <Link to="/products">
               <Button>Browse Products</Button>
             </Link>
@@ -54,7 +54,7 @@ export function OrdersPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold text-slate-900">My Orders</h1>
+      <h1 className="mb-8 text-4xl font-bold text-on-surface">My Orders</h1>
 
       <Card>
         <CardContent className="p-0">

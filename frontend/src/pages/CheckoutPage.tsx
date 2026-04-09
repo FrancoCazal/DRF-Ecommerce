@@ -61,7 +61,7 @@ export function CheckoutPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold text-slate-900">Checkout</h1>
+      <h1 className="mb-8 text-4xl font-bold text-on-surface">Checkout</h1>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
         <div>
@@ -119,10 +119,10 @@ export function CheckoutPage() {
                 {cart.items.map((item) => (
                   <div key={item.product_id} className="flex justify-between text-sm">
                     <div>
-                      <p className="font-medium text-slate-900">{item.product_name}</p>
-                      <p className="text-slate-600">Qty: {item.quantity}</p>
+                      <p className="font-medium text-on-surface">{item.product_name}</p>
+                      <p className="text-secondary">Qty: {item.quantity}</p>
                     </div>
-                    <p className="font-medium text-slate-900">
+                    <p className="font-medium text-on-surface">
                       {formatCurrency(item.line_total)}
                     </p>
                   </div>
@@ -132,14 +132,14 @@ export function CheckoutPage() {
               <Separator />
 
               <div className="flex justify-between">
-                <span className="font-semibold text-slate-900">Total</span>
-                <span className="text-xl font-bold text-slate-900">
+                <span className="font-semibold text-on-surface">Total</span>
+                <span className="text-xl font-bold text-on-surface">
                   {formatCurrency(cart.total)}
                 </span>
               </div>
 
-              <div className="rounded-lg bg-slate-50 p-4 text-sm text-slate-600">
-                <p className="mb-2 font-medium text-slate-900">Order Details</p>
+              <div className="rounded-lg bg-surface-container p-4 text-sm text-secondary">
+                <p className="mb-2 font-medium text-on-surface">Order Details</p>
                 <p>{cart.count} items</p>
               </div>
             </CardContent>

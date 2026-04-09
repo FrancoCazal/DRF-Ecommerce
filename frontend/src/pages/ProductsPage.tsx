@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { ProductFilters } from '@/components/products/ProductFilters';
 import { useProducts } from '@/hooks/useProducts';
@@ -16,6 +15,7 @@ export function ProductsPage() {
     category: searchParams.get('category') || undefined,
     min_price: searchParams.get('min_price') ? parseFloat(searchParams.get('min_price')!) : undefined,
     max_price: searchParams.get('max_price') ? parseFloat(searchParams.get('max_price')!) : undefined,
+    ordering: searchParams.get('ordering') || undefined,
     page: searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1,
   };
 
@@ -70,87 +70,86 @@ export function ProductsPage() {
   const totalPages = data ? Math.ceil(data.count / 20) : 1;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold text-slate-900">Products</h1>
+    <div className="max-w-[1600px] mx-auto px-6 py-12 md:py-20">
+      {/* Header */}
+      <header className="mb-16 border-b-2 border-on-surface pb-8">
+        <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-4 font-headline">THE CATALOG</h1>
+        <div className="flex justify-between items-end">
+          <p className="max-w-md text-secondary font-medium uppercase text-sm tracking-widest">
+            Curated for the concrete landscape.
+          </p>
+          <div className="text-xs font-bold tracking-widest font-headline uppercase hidden md:block">EST. 2018 / ASUNCION</div>
+        </div>
+      </header>
 
-      <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
-        <aside>
-          <ProductFilters
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
+      <div className="flex flex-col md:flex-row gap-12">
+        {/* Sidebar */}
+        <aside className="w-full md:w-64 flex-shrink-0">
+          <div className="sticky top-32">
+            {/* Search */}
+            <form onSubmit={handleSearch} className="mb-12">
+              <div className="flex">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-secondary" />
+                  <Input
+                    type="text"
+                    placeholder="SCAN..."
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+            </form>
+
+            <ProductFilters
+              filters={filters}
+              onFilterChange={handleFilterChange}
+            />
+          </div>
         </aside>
 
-        <main>
-          <form onSubmit={handleSearch} className="mb-6">
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                <Input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              <Button type="submit">Search</Button>
-            </div>
-          </form>
-
+        {/* Product Grid */}
+        <section className="flex-grow">
           {data && (
-            <div className="mb-4 text-sm text-slate-600">
-              Showing {data.results.length} of {data.count} products
+            <div className="mb-8 text-xs text-secondary font-headline font-bold uppercase tracking-widest">
+              {data.count} OBJECTS FOUND
             </div>
           )}
 
           <ProductGrid products={data?.results || []} isLoading={isLoading} />
 
+          {/* Pagination */}
           {data && totalPages > 1 && (
-            <div className="mt-8 flex justify-center gap-2">
-              <Button
-                variant="outline"
-                onClick={() => handlePageChange(filters.page - 1)}
-                disabled={filters.page === 1}
-              >
-                Previous
-              </Button>
-
-              <div className="flex items-center gap-2">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  let pageNum: number;
-                  if (totalPages <= 5) {
-                    pageNum = i + 1;
-                  } else if (filters.page <= 3) {
-                    pageNum = i + 1;
-                  } else if (filters.page >= totalPages - 2) {
-                    pageNum = totalPages - 4 + i;
-                  } else {
-                    pageNum = filters.page - 2 + i;
-                  }
-
-                  return (
-                    <Button
-                      key={pageNum}
-                      variant={filters.page === pageNum ? 'default' : 'outline'}
-                      onClick={() => handlePageChange(pageNum)}
-                    >
-                      {pageNum}
-                    </Button>
-                  );
-                })}
+            <div className="mt-24 border-t-2 border-on-surface pt-8 flex justify-between items-center">
+              <div className="flex gap-2">
+                {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`w-12 h-1 ${i + 1 === filters.page ? 'bg-primary' : 'bg-surface-container-highest'}`}
+                  ></span>
+                ))}
               </div>
-
-              <Button
-                variant="outline"
-                onClick={() => handlePageChange(filters.page + 1)}
-                disabled={filters.page === totalPages}
-              >
-                Next
-              </Button>
+              <div className="flex items-center gap-12 font-headline font-bold text-xs tracking-widest">
+                <button
+                  onClick={() => handlePageChange(filters.page - 1)}
+                  disabled={filters.page === 1}
+                  className="flex items-center gap-2 hover:text-primary transition-colors disabled:opacity-30"
+                >
+                  <ArrowLeft className="h-4 w-4" /> PREV
+                </button>
+                <span className="text-on-surface">PAGE {String(filters.page).padStart(2, '0')} / {String(totalPages).padStart(2, '0')}</span>
+                <button
+                  onClick={() => handlePageChange(filters.page + 1)}
+                  disabled={filters.page === totalPages}
+                  className="flex items-center gap-2 hover:text-primary transition-colors disabled:opacity-30"
+                >
+                  NEXT <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           )}
-        </main>
+        </section>
       </div>
     </div>
   );

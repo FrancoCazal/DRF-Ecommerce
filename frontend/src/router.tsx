@@ -5,7 +5,7 @@ import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const LoadingFallback = () => (
-  <div className="container mx-auto px-4 py-8">
+  <div className="max-w-[1600px] mx-auto px-6 py-12">
     <div className="space-y-4">
       <Skeleton className="h-12 w-64" />
       <Skeleton className="h-64 w-full" />

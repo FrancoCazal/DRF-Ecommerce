@@ -60,7 +60,7 @@ export function OrderDetailPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h1 className="mb-4 text-2xl font-bold text-slate-900">Order not found</h1>
+          <h1 className="mb-4 text-2xl font-bold text-on-surface">Order not found</h1>
           <Link to="/orders">
             <Button>Back to Orders</Button>
           </Link>
@@ -73,7 +73,7 @@ export function OrderDetailPage() {
     <div className="container mx-auto px-4 py-8">
       <Link
         to="/orders"
-        className="mb-6 inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
+        className="mb-6 inline-flex items-center gap-2 text-sm text-secondary hover:text-on-surface"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Orders
@@ -81,8 +81,8 @@ export function OrderDetailPage() {
 
       <div className="mb-8 flex items-start justify-between">
         <div>
-          <h1 className="mb-2 text-4xl font-bold text-slate-900">Order #{order.id}</h1>
-          <p className="text-slate-600">Placed on {formatDate(order.created_at)}</p>
+          <h1 className="mb-2 text-4xl font-bold text-on-surface">Order #{order.id}</h1>
+          <p className="text-secondary">Placed on {formatDate(order.created_at)}</p>
         </div>
         <OrderStatusBadge status={order.status} />
       </div>
@@ -105,13 +105,13 @@ export function OrderDetailPage() {
             <CardContent>
               <div className="space-y-2">
                 <div>
-                  <h3 className="font-semibold text-slate-900">Shipping Address</h3>
-                  <p className="mt-1 whitespace-pre-line text-slate-700">{order.shipping_address}</p>
+                  <h3 className="font-semibold text-on-surface">Shipping Address</h3>
+                  <p className="mt-1 whitespace-pre-line text-on-surface">{order.shipping_address}</p>
                 </div>
                 {order.notes && (
                   <div className="mt-4">
-                    <h3 className="font-semibold text-slate-900">Order Notes</h3>
-                    <p className="mt-1 text-slate-700">{order.notes}</p>
+                    <h3 className="font-semibold text-on-surface">Order Notes</h3>
+                    <p className="mt-1 text-on-surface">{order.notes}</p>
                   </div>
                 )}
               </div>
@@ -126,14 +126,14 @@ export function OrderDetailPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between text-sm">
-                <span className="text-slate-600">Subtotal</span>
-                <span className="font-medium text-slate-900">
+                <span className="text-secondary">Subtotal</span>
+                <span className="font-medium text-on-surface">
                   {formatCurrency(order.total_amount)}
                 </span>
               </div>
 
               <div className="flex justify-between text-sm">
-                <span className="text-slate-600">Payment</span>
+                <span className="text-secondary">Payment</span>
                 <Badge
                   variant={
                     order.payment_status === 'paid' ? 'default' :
@@ -150,8 +150,8 @@ export function OrderDetailPage() {
               <Separator />
 
               <div className="flex justify-between">
-                <span className="font-semibold text-slate-900">Total</span>
-                <span className="text-xl font-bold text-slate-900">
+                <span className="font-semibold text-on-surface">Total</span>
+                <span className="text-xl font-bold text-on-surface">
                   {formatCurrency(order.total_amount)}
                 </span>
               </div>

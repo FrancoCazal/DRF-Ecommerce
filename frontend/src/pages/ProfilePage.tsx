@@ -50,7 +50,7 @@ export function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold text-slate-900">My Profile</h1>
+      <h1 className="mb-8 text-4xl font-bold text-on-surface">My Profile</h1>
 
       <div className="mx-auto max-w-2xl space-y-6">
         <Card>
@@ -59,15 +59,15 @@ export function ProfilePage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label className="text-sm font-medium text-slate-600">Email</Label>
-              <p className="mt-1 text-slate-900">{user.email}</p>
+              <Label className="text-sm font-medium text-secondary">Email</Label>
+              <p className="mt-1 text-on-surface">{user.email}</p>
             </div>
 
             <Separator />
 
             <div>
-              <Label className="text-sm font-medium text-slate-600">Member Since</Label>
-              <p className="mt-1 text-slate-900">{formatDate(user.date_joined)}</p>
+              <Label className="text-sm font-medium text-secondary">Member Since</Label>
+              <p className="mt-1 text-on-surface">{formatDate(user.date_joined)}</p>
             </div>
           </CardContent>
         </Card>

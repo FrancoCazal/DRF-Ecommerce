@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CartItem } from '@/components/cart/CartItem';
 import { CartSummary } from '@/components/cart/CartSummary';
@@ -12,15 +10,17 @@ export function CartPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="mb-8 text-4xl font-bold text-slate-900">Shopping Cart</h1>
-        <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
-          <div className="space-y-4">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-32 w-full" />
+      <div className="max-w-[1600px] mx-auto px-6 py-12 md:px-12 lg:px-24">
+        <Skeleton className="h-24 w-96 mb-16" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-8 space-y-8">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <Skeleton key={i} className="h-48 w-full" />
             ))}
           </div>
-          <Skeleton className="h-64 w-full" />
+          <div className="lg:col-span-4">
+            <Skeleton className="h-80 w-full" />
+          </div>
         </div>
       </div>
     );
@@ -28,39 +28,61 @@ export function CartPage() {
 
   if (!cart || cart.items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16">
-        <Card>
-          <CardContent className="flex flex-col items-center py-16">
-            <ShoppingBag className="mb-4 h-16 w-16 text-slate-400" />
-            <h2 className="mb-2 text-2xl font-bold text-slate-900">Your cart is empty</h2>
-            <p className="mb-6 text-slate-600">Add some products to get started</p>
-            <Link to="/products">
-              <Button>Browse Products</Button>
-            </Link>
-          </CardContent>
-        </Card>
+      <div className="max-w-[1600px] mx-auto px-6 py-16 md:px-12 lg:px-24">
+        <div className="flex flex-col items-center py-24 border-2 border-on-surface">
+          <ShoppingBag className="mb-6 h-16 w-16 text-secondary" />
+          <h2 className="mb-2 font-headline text-4xl font-black uppercase tracking-tighter">YOUR HAUL IS EMPTY</h2>
+          <p className="mb-8 text-secondary font-headline uppercase text-sm tracking-widest">TIME TO FILL IT UP</p>
+          <Link
+            to="/products"
+            className="px-10 py-4 bg-primary-container text-white font-headline font-bold uppercase tracking-widest hover:bg-primary transition-all"
+          >
+            VIEW ALL OBJECTS
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold text-slate-900">Shopping Cart</h1>
+    <div className="max-w-[1600px] mx-auto px-6 py-12 md:px-12 lg:px-24">
+      {/* Header */}
+      <header className="mb-16">
+        <h1 className="text-7xl md:text-9xl font-black font-headline tracking-tighter uppercase leading-[0.8] text-on-surface">
+          YOUR <br /> <span className="text-primary">HAUL</span>
+        </h1>
+        <p className="mt-4 font-body uppercase text-xs tracking-widest text-secondary opacity-70">
+          LOCKED AND LOADED // SECURE YOUR SELECTIONS
+        </p>
+      </header>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
-        <div>
-          <Card>
-            <CardContent className="p-6">
-              {cart.items.map((item) => (
-                <CartItem key={item.variant_id} item={item} />
-              ))}
-            </CardContent>
-          </Card>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Cart Items */}
+        <section className="lg:col-span-8 space-y-8">
+          {cart.items.map((item) => (
+            <CartItem key={item.variant_id} item={item} />
+          ))}
 
-        <div>
+          {/* Hookup Code */}
+          <section className="pt-8 border-t-2 border-on-surface/10">
+            <label className="font-headline font-bold uppercase text-sm tracking-widest block mb-4">GOT A HOOKUP CODE?</label>
+            <div className="flex max-w-md">
+              <input
+                className="w-full bg-surface-container-high border-2 border-on-surface px-4 py-3 font-headline focus:ring-2 focus:ring-primary-container outline-none placeholder:text-on-surface/30"
+                placeholder="ENTER CODE"
+                type="text"
+              />
+              <button className="bg-on-surface text-surface px-8 py-3 font-headline font-bold uppercase tracking-tighter hover:bg-primary transition-colors active:scale-95">
+                APPLY
+              </button>
+            </div>
+          </section>
+        </section>
+
+        {/* Damage Sidebar */}
+        <aside className="lg:col-span-4 sticky top-28">
           <CartSummary total={cart.total} itemCount={cart.count} />
-        </div>
+        </aside>
       </div>
     </div>
   );

@@ -1,8 +1,4 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart } from 'lucide-react';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Product } from '@/lib/types';
 import { formatCurrency } from '@/lib/utils';
 
@@ -12,49 +8,39 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const imageUrl = product.image || null;
+  const categoryName = typeof product.category === 'object' ? product.category.name : '';
 
   return (
     <Link to={`/products/${product.slug}`}>
-      <Card className="h-full transition-shadow hover:shadow-lg">
-        <CardContent className="p-4">
-          <div className="aspect-square overflow-hidden rounded-lg bg-slate-100">
-            {imageUrl ? (
-              <img
-                src={imageUrl}
-                alt={product.name}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-slate-400">
-                No image
-              </div>
+      <article className="group cursor-pointer">
+        <div className="relative aspect-[3/4] bg-surface-container overflow-hidden transition-all group-hover:outline group-hover:outline-2 group-hover:outline-on-surface group-hover:outline-offset-4">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={product.name}
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-secondary font-headline uppercase text-sm">
+              NO IMAGE
+            </div>
+          )}
+          {product.stock === 0 && (
+            <div className="absolute top-4 right-4 bg-on-surface text-white text-[10px] font-bold px-2 py-1 uppercase font-headline">
+              SOLD OUT
+            </div>
+          )}
+        </div>
+        <div className="mt-4 flex justify-between items-start">
+          <div>
+            <h4 className="font-headline font-bold text-sm tracking-tight uppercase mb-1">{product.name}</h4>
+            {categoryName && (
+              <p className="text-[10px] text-secondary font-bold uppercase">{categoryName}</p>
             )}
           </div>
-          <div className="mt-4">
-            <h3 className="font-semibold text-slate-900">{product.name}</h3>
-            <div className="mt-2 flex items-center justify-between">
-              <p className="text-lg font-bold text-slate-900">
-                {formatCurrency(product.price)}
-              </p>
-              {product.stock > 0 ? (
-                <Badge variant="success" className="text-xs">
-                  In Stock
-                </Badge>
-              ) : (
-                <Badge variant="destructive" className="text-xs">
-                  Out of Stock
-                </Badge>
-              )}
-            </div>
-          </div>
-        </CardContent>
-        <CardFooter className="p-4 pt-0">
-          <Button className="w-full gap-2">
-            <ShoppingCart className="h-4 w-4" />
-            View Options
-          </Button>
-        </CardFooter>
-      </Card>
+          <span className="font-headline font-bold text-sm text-primary">{formatCurrency(product.price)}</span>
+        </div>
+      </article>
     </Link>
   );
 }

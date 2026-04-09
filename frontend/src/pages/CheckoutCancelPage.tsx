@@ -47,10 +47,10 @@ export function CheckoutCancelPage() {
             </div>
 
             <div>
-              <h1 className="mb-2 text-2xl font-bold text-slate-900">
+              <h1 className="mb-2 text-2xl font-bold text-on-surface">
                 Payment Cancelled
               </h1>
-              <p className="text-slate-600">
+              <p className="text-secondary">
                 Your payment was not completed. Your order is still pending
                 and no charges were made.
               </p>
@@ -80,7 +80,7 @@ export function CheckoutCancelPage() {
 
             <Link
               to="/products"
-              className="block text-sm text-slate-500 hover:text-slate-700"
+              className="block text-sm text-secondary hover:text-on-surface"
             >
               Return to shop
             </Link>

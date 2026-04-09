@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { X } from 'lucide-react';
 import { CartItem as CartItemType } from '@/lib/types';
 import { formatCurrency } from '@/lib/utils';
 import { useUpdateCartItem, useRemoveCartItem } from '@/hooks/useCart';
@@ -31,7 +29,7 @@ export function CartItem({ item }: CartItemProps) {
   const handleRemove = () => {
     removeCartItem.mutate(item.variant_id, {
       onSuccess: () => {
-        toast.success('Item removed from cart');
+        toast.success('Item removed from haul');
       },
       onError: () => {
         toast.error('Failed to remove item');
@@ -42,79 +40,63 @@ export function CartItem({ item }: CartItemProps) {
   const imageUrl = item.image || null;
 
   return (
-    <div className="flex gap-4 border-b border-slate-200 py-4">
-      <Link to={`/products/${item.product_slug}`} className="flex-shrink-0">
+    <article className="group flex flex-col md:flex-row gap-6 border-2 border-on-surface p-6 bg-surface-container-low transition-colors hover:bg-white">
+      <Link to={`/products/${item.product_slug}`} className="w-full md:w-48 h-48 bg-surface-container-highest shrink-0 overflow-hidden">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={item.product_name}
-            className="h-24 w-24 rounded-lg object-cover"
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
           />
         ) : (
-          <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-slate-100 text-xs text-slate-400">
-            No image
+          <div className="flex h-full w-full items-center justify-center text-secondary font-headline uppercase text-xs">
+            NO IMAGE
           </div>
         )}
       </Link>
 
-      <div className="flex flex-1 flex-col justify-between">
+      <div className="flex flex-col justify-between flex-grow">
         <div>
-          <Link
-            to={`/products/${item.product_slug}`}
-            className="font-semibold text-slate-900 hover:text-slate-700"
-          >
-            {item.product_name}
-          </Link>
-          <p className="mt-1 text-sm text-slate-600">
-            {item.variant_name}
-          </p>
-          <p className="text-sm text-slate-500">
-            {formatCurrency(item.price)} each
-          </p>
+          <div className="flex justify-between items-start">
+            <Link to={`/products/${item.product_slug}`}>
+              <h3 className="font-headline font-bold text-2xl uppercase tracking-tight hover:text-primary transition-colors">
+                {item.product_name}
+              </h3>
+            </Link>
+            <button
+              onClick={handleRemove}
+              disabled={removeCartItem.isPending}
+              className="text-on-surface hover:text-primary transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <p className="text-secondary font-body mt-1 text-sm">{item.variant_name}</p>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
+        <div className="flex justify-between items-end mt-6">
+          <div className="flex items-center border-2 border-on-surface">
+            <button
               onClick={() => handleQuantityChange(item.quantity - 1)}
               disabled={item.quantity <= 1 || updateCartItem.isPending}
+              className="px-3 py-1 hover:bg-on-surface hover:text-surface transition-colors font-bold disabled:opacity-30"
             >
               -
-            </Button>
-            <Input
-              type="number"
-              value={item.quantity}
-              onChange={(e) => handleQuantityChange(parseInt(e.target.value))}
-              className="w-16 text-center"
-              min="1"
-              disabled={updateCartItem.isPending}
-            />
-            <Button
-              variant="outline"
-              size="sm"
+            </button>
+            <span className="px-6 py-1 font-headline font-bold border-x-2 border-on-surface">
+              {String(item.quantity).padStart(2, '0')}
+            </span>
+            <button
               onClick={() => handleQuantityChange(item.quantity + 1)}
               disabled={updateCartItem.isPending}
+              className="px-3 py-1 hover:bg-on-surface hover:text-surface transition-colors font-bold"
             >
               +
-            </Button>
+            </button>
           </div>
-
-          <p className="ml-auto font-semibold text-slate-900">
-            {formatCurrency(item.line_total)}
-          </p>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleRemove}
-            disabled={removeCartItem.isPending}
-          >
-            <Trash2 className="h-4 w-4 text-red-500" />
-          </Button>
+          <span className="font-headline font-black text-2xl">{formatCurrency(item.line_total)}</span>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

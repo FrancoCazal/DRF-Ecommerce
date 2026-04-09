@@ -14,10 +14,10 @@ export function CheckoutSuccessPage() {
             </div>
 
             <div>
-              <h1 className="mb-2 text-2xl font-bold text-slate-900">
+              <h1 className="mb-2 text-2xl font-bold text-on-surface">
                 Payment Successful!
               </h1>
-              <p className="text-slate-600">
+              <p className="text-secondary">
                 Your order has been confirmed and is now being processed.
                 You will receive a confirmation email shortly.
               </p>
