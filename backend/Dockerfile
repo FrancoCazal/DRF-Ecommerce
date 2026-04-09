@@ -23,4 +23,4 @@ RUN DJANGO_SETTINGS_MODULE=config.settings.production \
     DB_NAME=x DB_USER=x DB_PASSWORD=x DB_HOST=x \
     python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000}
