@@ -15,7 +15,7 @@ export function ProductsPage() {
     category: searchParams.get('category') || undefined,
     min_price: searchParams.get('min_price') ? parseFloat(searchParams.get('min_price')!) : undefined,
     max_price: searchParams.get('max_price') ? parseFloat(searchParams.get('max_price')!) : undefined,
-    ordering: searchParams.get('ordering') || undefined,
+    ordering: searchParams.get('ordering') || 'name',
     page: searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1,
   };
 
