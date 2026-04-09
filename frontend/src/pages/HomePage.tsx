@@ -25,7 +25,7 @@ export function HomePage() {
           <img
             alt="Urban streetwear lifestyle"
             className="w-full h-full object-cover grayscale"
-            src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&q=80"
+            src="https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?w=1920&q=80"
           />
         </div>
         <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-16">
@@ -53,9 +53,9 @@ export function HomePage() {
       <section className="bg-surface py-24 px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-2 border-on-surface max-w-7xl mx-auto">
           {[
-            { name: 'MEN', slug: 'men', img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800&q=80' },
-            { name: 'WOMEN', slug: 'women', img: 'https://images.unsplash.com/photo-1581044777550-4cfa60707998?w=800&q=80' },
-            { name: 'UNISEX', slug: 'unisex', img: 'https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=800&q=80' },
+            { name: 'MEN', slug: 'men', img: 'https://unsplash.com/photos/J-YQ36vC2F8/download?w=800' },
+            { name: 'WOMEN', slug: 'women', img: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=80' },
+            { name: 'UNISEX', slug: 'unisex', img: 'https://unsplash.com/photos/BkYjAysV8J4/download?w=800' },
           ].map((cat, i) => (
             <Link
               key={cat.slug}
@@ -82,14 +82,14 @@ export function HomePage() {
           <div className="flex justify-between items-end mb-16">
             <div>
               <span className="text-primary font-headline font-bold uppercase tracking-tighter text-sm block mb-2">CURATED SELECTION</span>
-              <h3 className="font-headline text-5xl md:text-6xl font-black text-on-surface tracking-tighter uppercase">TRENDING NOW</h3>
+              <h3 className="font-headline text-5xl md:text-6xl font-black text-on-surface tracking-tighter uppercase">LATEST DROPS</h3>
             </div>
             <Link to="/products" className="font-headline font-bold uppercase border-b-2 border-on-surface pb-1 hover:text-primary hover:border-primary transition-all flex items-center gap-2">
               VIEW ALL <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <ProductGrid products={data?.results || []} isLoading={isLoading} />
+          <ProductGrid products={(data?.results || []).slice(0, 8)} isLoading={isLoading} />
         </div>
       </section>
 
@@ -108,7 +108,7 @@ export function HomePage() {
         <div className="h-[500px] md:h-auto overflow-hidden">
           <img
             className="w-full h-full object-cover grayscale brightness-75"
-            src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80"
+            src="https://unsplash.com/photos/lAxv9rMj0pY/download?w=800"
             alt="Urban landscape"
           />
         </div>
