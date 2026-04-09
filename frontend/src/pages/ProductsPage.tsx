@@ -68,7 +68,10 @@ export function ProductsPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const totalPages = data ? Math.ceil(data.count / 20) : 1;
+  const PAGE_SIZE = 8;
+  const allProducts = data?.results || [];
+  const paginatedProducts = allProducts.slice(0, PAGE_SIZE);
+  const totalPages = data ? Math.ceil(data.count / PAGE_SIZE) : 1;
 
   return (
     <div className="max-w-[1600px] mx-auto px-6 py-12 md:py-20">
@@ -143,7 +146,7 @@ export function ProductsPage() {
             </div>
           )}
 
-          <ProductGrid products={data?.results || []} isLoading={isLoading} />
+          <ProductGrid products={paginatedProducts} isLoading={isLoading} />
 
           {/* Pagination */}
           {data && totalPages > 1 && (

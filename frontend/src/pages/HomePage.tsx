@@ -29,6 +29,19 @@ export function HomePage() {
           />
         </div>
         <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-16">
+        {/* Logo + CTA — centered right */}
+          <div className="hidden md:flex absolute right-16 top-[55%] -translate-y-1/2 flex-col items-center gap-16">
+            <img
+              src="/favicon.jpg"
+              alt="Urban Attic Logo"
+              className="w-40 lg:w-56 xl:w-72 h-auto object-contain opacity-90"
+            />
+            <Link to="/products">
+              <button className="px-10 py-5 bg-primary-container text-white font-headline font-bold uppercase tracking-widest text-xl border-2 border-on-surface hover:bg-white hover:text-on-surface transition-all active:scale-95">
+                SHOP NOW
+              </button>
+            </Link>
+          </div>
           <h1 className="font-headline text-[15vw] md:text-[12vw] leading-[0.8] font-black tracking-tighter text-white uppercase mb-8">
             STREET<br />LEVEL<br />ONLY
           </h1>
@@ -36,7 +49,8 @@ export function HomePage() {
             <p className="max-w-md font-body text-surface-container-high text-lg uppercase tracking-tight">
               COMFORTABLE, MODERN, AND AUTHENTIC URBAN FASHION FROM ASUNCION.
             </p>
-            <Link to="/products">
+            {/* Mobile-only CTA */}
+            <Link to="/products" className="md:hidden">
               <button className="px-10 py-5 bg-primary-container text-white font-headline font-bold uppercase tracking-widest text-xl border-2 border-on-surface hover:bg-white hover:text-on-surface transition-all active:scale-95">
                 SHOP NOW
               </button>
